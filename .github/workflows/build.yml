@@ -1,0 +1,35 @@
+name: Build Shared Libraries
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install CMake
+        uses: lukka/get-cmake@v3
+
+      - name: Configure
+        run: cmake -S . -B build
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: errorcheck-${{ matrix.os }}
+          path: |
+            build/**/*.dll
+            build/**/*.so
+            build/**/*.dylib

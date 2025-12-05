@@ -1,6 +1,6 @@
 ---
 
-# 📦 **Trappist Linter**
+# 📦 **Linter**
 
 A fast, cross-platform, multi-language syntax checker powered by a native high-performance C engine and a Python interface.
 Designed for speed, portability, and editor/tool integration.

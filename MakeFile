@@ -1,0 +1,39 @@
+# ================================
+#  Trappist Linter Makefile
+# ================================
+
+CC = gcc
+CFLAGS = -O2 -fPIC
+SRC = src/error.c src/linter.c
+OUTDIR = build
+
+# auto-create build directory
+$(shell mkdir -p $(OUTDIR))
+
+# default: build all OS targets
+all: linux mac windows
+
+# ================================
+# Linux build (.so)
+# ================================
+linux:
+	$(CC) $(CFLAGS) -shared -o $(OUTDIR)/errorcheck.so $(SRC)
+
+# ================================
+# macOS build (.dylib)
+# ================================
+mac:
+	$(CC) $(CFLAGS) -dynamiclib -o $(OUTDIR)/errorcheck.dylib $(SRC)
+
+# ================================
+# Windows build (.dll)
+# must be run under MinGW or Git Bash
+# ================================
+windows:
+	$(CC) -shared -o $(OUTDIR)/errorcheck.dll $(SRC)
+
+# ================================
+# Clean
+# ================================
+clean:
+	rm -rf $(OUTDIR)/*

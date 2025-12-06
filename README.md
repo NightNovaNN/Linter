@@ -192,7 +192,7 @@ File:
 
 # 🛣 Roadmap
 
-- CLI tool (`trappistlint`)
+- CLI tool (`linter`)
 - JSON output for editors
 - Auto-fix engine (quote/bracket repair)
 - Support for raw string literals (Java/C++)
@@ -214,3 +214,46 @@ Please ensure all C code builds on Windows, Linux, and macOS.
 
 ---
 
+# Portability  
+If CMake fails, use MakeFile, steps:  
+- Download MakeFile from [GNU Make](https://gnuwin32.sourceforge.net/packages/make.htm)
+- Add to path  
+- Test:  
+```sh  
+make -v  
+```  
+- Run: 
+```sh
+make
+```  
+If that fails too, then use GCC to build the binary on your OS, steps:  
+- Install GCC from [GCC Download](https://sourceforge.net/projects/gcc-win64/)
+- Add to path  
+- Test install:
+```sh
+gcc -v
+```
+- Run:  
+  - Windows  
+      ```sh  
+      cd Linter/src  
+      gcc error.c linter.c -shared -O3 -o errorcheck.dll  
+      # Run  
+      python linter.py  
+      ```  
+  - Linux
+    ```sh
+    cd Linter/src  
+    gcc error.c linter.c -shared -O3 -o errorcheck.so  
+    # Run  
+    python linter.py
+    ```
+  - MacOS
+    ```sh
+    cd Linter/src  
+    gcc error.c linter.c -shared -O3 -o errorcheck.dylib  
+    # Run  
+    python linter.py
+    ```
+
+---
